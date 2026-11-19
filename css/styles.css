@@ -426,9 +426,42 @@ textarea {resize:vertical}
 .article-body .source-list, .article-body .source-numbered {padding-left:1.3rem;margin:.5rem 0 1.7rem;line-height:1.85}
 .article-body .source-list li,.article-body .source-numbered li {margin-bottom:.6rem}
 .article-body .table-scroll {max-width:100%;overflow-x:auto;border:1px solid var(--border);background:var(--paper);border-radius:10px;padding:.65rem;margin:1rem 0 1.75rem}
-.article-body .table-scroll pre {margin:0;line-height:1.6;min-width:max-content;font-size:.81rem;color:var(--ink);font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+/* The supplied manuscript's tables are regular, responsive HTML tables, not monospace text. */
+.visually-hidden {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.article-body {font:400 1rem/1.78 var(--font-body);color:var(--ink)}
+.article-body .source-list,.article-body .source-numbered {font:inherit}
+.article-body .source-list li,.article-body .source-numbered li {line-height:1.75}
+.article-body .table-scroll {padding:0;box-shadow:0 5px 22px rgba(48,81,63,.04)}
+.article-body .source-table {width:100%;border-collapse:collapse;font:400 .94rem/1.6 var(--font-body);color:var(--ink);text-align:left}
+.article-body .source-table thead {background:var(--sage);color:var(--forest)}
+.article-body .source-table th,.article-body .source-table td {padding:.9rem 1rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--border)}
+.article-body .source-table thead th {font-weight:800;white-space:normal}
+.article-body .source-table tbody th {font-weight:700}
+.article-body .source-table tbody tr:nth-child(even) {background:#f8f5ed}
+.article-body .source-table tbody tr:last-child th,.article-body .source-table tbody tr:last-child td {border-bottom:0}
+.article-body .source-table th,.article-body .source-table td {overflow-wrap:anywhere}
+@media(max-width:600px){.article-body .source-table {font-size:.87rem}.article-body .source-table th,.article-body .source-table td {padding:.75rem .7rem}.article-body .source-table:has(th:nth-child(3)) {min-width:570px}}
 .article-body h3 {margin-top:1.5rem;font-size:1.3rem;color:var(--forest)}
 .recipe-extra {margin-top:1.35rem;background:#f8eee0;padding:.9rem 1.15rem;border-radius:9px;font-size:.91rem}
 .recipe-extra summary {font-weight:800;cursor:pointer;color:var(--forest)}
 .recipe-extra p {margin:1rem 0 0;line-height:1.8}
-@media print {.recipe-extra {break-inside:avoid} .article-body .table-scroll {overflow:visible} .article-body .table-scroll pre {white-space:pre-wrap;min-width:0}}
+@media print {.recipe-extra {break-inside:avoid} .article-body .table-scroll {overflow:visible} .article-body .source-table {font-size:9pt}}
+
+/* Homepage: the U.S. Thanksgiving countdown follows the visitor's device timezone. */
+.countdown-section {background:var(--sage);border-block:1px solid #d4dece;padding:3.2rem 0}
+.countdown-layout {display:grid;grid-template-columns:minmax(235px,.85fr) minmax(0,1.5fr);gap:clamp(1.5rem,4vw,4rem);align-items:center}
+.countdown-copy h2 {font-size:clamp(1.8rem,3vw,2.75rem);margin-bottom:.65rem}
+.countdown-copy p {margin-bottom:.55rem;color:#435346;font-size:.93rem}
+.countdown-copy .eyebrow {color:var(--rust);margin-bottom:.65rem}
+.countdown-date {font-weight:700!important;color:var(--forest)!important}
+.countdown-grid {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
+.countdown-tile {background:var(--paper);border:1px solid #cfdac7;border-radius:13px;min-width:0;text-align:center;padding:1.2rem .35rem;box-shadow:0 5px 16px rgba(36,64,47,.04)}
+.countdown-value {display:block;color:var(--forest);font:600 clamp(1.9rem,3.5vw,3.25rem)/1.05 var(--font-display);font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.countdown-unit {display:block;margin-top:.45rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;font-weight:800;color:var(--muted)}
+.countdown-zone {margin:.85rem 0 0;color:#536153;font-size:.79rem;text-align:right}
+.countdown-message {margin-top:1rem;color:var(--rust);font-weight:750}
+@media(max-width:760px){.countdown-section {padding:2.5rem 0}.countdown-layout {grid-template-columns:1fr;gap:1.2rem}.countdown-zone {text-align:left}}
+@media(max-width:370px){.countdown-grid {gap:.4rem}.countdown-tile {padding:.85rem .15rem}.countdown-value {font-size:1.7rem}.countdown-unit {font-size:.62rem;letter-spacing:0}}
+@media print {.countdown-section {display:none}}
+/* Allow table scroll regions to shrink inside the guide's mobile CSS grid. */
+.article-layout > .article-body,.article-body .article-section {min-width:0}

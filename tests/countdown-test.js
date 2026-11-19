@@ -1,0 +1,25 @@
+/* Run using node tests/countdown-test.js. TZ can be set to test visitor timezones. */
+'use strict';
+const vm = require('node:vm');
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+const context={Date, Intl, console};
+vm.createContext(context);
+vm.runInContext(fs.readFileSync('js/countdown.js','utf8'),context);
+const {thanksgivingDate,countdownState}=context.GGCountdown;
+assert.equal(thanksgivingDate(2026).getDate(),26);
+assert.equal(thanksgivingDate(2027).getDate(),25);
+assert.equal(thanksgivingDate(2028).getDay(),4);
+assert.equal(thanksgivingDate(2028).getMonth(),10);
+const before=countdownState(new Date(2026,10,25,23,30));
+assert.equal(before.isThanksgiving,false);
+assert.equal(before.secondsLeft,1800);
+assert.equal(before.days,0);
+assert.equal(before.minutes,30);
+const onDay=countdownState(new Date(2026,10,26,12,0));
+assert.equal(onDay.isThanksgiving,true);
+assert.equal(onDay.secondsLeft,0);
+const after=countdownState(new Date(2026,10,27,12,0));
+assert.equal(after.target.getFullYear(),2027);
+assert.equal(after.isThanksgiving,false);
+console.log('PASS Thanksgiving countdown: calendar date, year rollover, local midnight, same-day greeting. TZ='+Intl.DateTimeFormat().resolvedOptions().timeZone);
